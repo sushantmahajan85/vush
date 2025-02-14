@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day, Vush ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .section {
+            padding: 40px 20px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            max-width: 700px;
+            transition: all 0.5s ease-in-out;
+        }
+
+        button {
+            background: #ff4b5c;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background: #e63946;
+        }
+
+        .hidden { display: none; }
+
+        .heart {
+            position: fixed;
+            color: red;
+            font-size: 20px;
+            animation: float 5s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+
+        .love-note {
+            font-size: 18px;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+    </style>
+</head>
+<body>
+    <audio autoplay loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 300);
+    </script>
+
+    <div class="container">
+        <div class="section">
+            <h1>Happy Valentine's Day, Vush! ❤️</h1>
+            <p>10 years together and I still get butterflies thinking about you. 🥰</p>
+        </div>
+
+        <div class="section" id="question1">
+            <h3>How much do you love me?</h3>
+            <button onclick="nextQuestion()">More than anything! ❤️</button>
+            <button onclick="wrongAnswer(this)">Let me think... 🤔</button>
+        </div>
+
+        <div class="section hidden" id="question2">
+            <h3>What’s your favorite memory of us?</h3>
+            <button onclick="nextQuestion2()">Our secret meetings! 😍</button>
+            <button onclick="wrongAnswer(this)">When you bought me food! 🍕</button>
+        </div>
+
+        <div class="section hidden" id="question3">
+            <h3>Would you still love me if I forgot our anniversary? 😅</h3>
+            <button onclick="nextQuestion3()">I would remind you with love ❤️</button>
+            <button onclick="wrongAnswer(this)">I would kill you! 🔪😂</button>
+        </div>
+
+        <div class="section hidden" id="question4">
+            <h3>Who is the cutest in our relationship?</h3>
+            <button onclick="nextQuestion4()">You, of course! 😘</button>
+            <button onclick="wrongAnswer(this)">Me, obviously! 😎</button>
+        </div>
+
+        <div class="section hidden" id="question5">
+            <p>Yayy! You passed the test! 🥳 Now let me make you smile even more.</p>
+            <button onclick="showLoveLetter()">Read My Love Letter 💌</button>
+        </div>
+
+        <div class="section hidden" id="loveLetter">
+            <h2>My Love Letter to You 💌</h2>
+            <p>
+                Vush, my love, my forever PK partner,<br><br>
+
+                From sneaking around your house just to steal a glimpse of you, to dreaming about our future together, every moment with you is magical. ✨<br><br>
+
+                I still remember how you smiled at me in school, how we exchanged glances, and how my heart would race just seeing you. Even after all these years, you make me feel the same excitement, love, and warmth. ❤️<br><br>
+
+                Despite the distance, despite the challenges, despite everything, we stood strong together. You have always been my strength, my joy, my home. <br><br>
+
+                I know I mess up sometimes, and I know I’m not perfect, but my love for you is unwavering. You are my biggest dream, my forever, and my happiest place. I want nothing more than to build a future with you, a life filled with love, laughter, and the sweetest moments. <br><br>
+
+                One day, we’ll have our small bakery, we’ll travel the world, and we’ll tell our story to everyone—how two crazy kids fell in love and never let go. <br><br>
+
+                Happy Valentine's Day, my Vush. I love you more than words can ever say. ❤️
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function nextQuestion() {
+            document.getElementById('question1').classList.add('hidden');
+            document.getElementById('question2').classList.remove('hidden');
+        }
+        function nextQuestion2() {
+            document.getElementById('question2').classList.add('hidden');
+            document.getElementById('question3').classList.remove('hidden');
+        }
+        function nextQuestion3() {
+            document.getElementById('question3').classList.add('hidden');
+            document.getElementById('question4').classList.remove('hidden');
+        }
+        function nextQuestion4() {
+            document.getElementById('question4').classList.add('hidden');
+            document.getElementById('question5').classList.remove('hidden');
+        }
+        function showLoveLetter() {
+            document.getElementById('question5').classList.add('hidden');
+            document.getElementById('loveLetter').classList.remove('hidden');
+        }
+        function wrongAnswer(btn) {
+            btn.innerText = "Try again! 🙄";
+        }
+    </script>
+</body>
+</html>
