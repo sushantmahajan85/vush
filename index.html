@@ -15,6 +15,7 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            position: relative;
         }
 
         .container {
@@ -55,38 +56,38 @@
 
         .hidden { display: none; }
 
-        /* Floating Hearts */
+        /* Falling Hearts */
         .heart {
             position: fixed;
             bottom: 0;
             font-size: 20px;
             color: red;
-            animation: floatUp 5s linear infinite;
-            opacity: 0.8;
+            animation: fall 4s linear infinite;
         }
 
-        @keyframes floatUp {
-            0% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh);
-                opacity: 0;
-            }
+        @keyframes fall {
+            0% { transform: translateY(0) translateX(0); opacity: 1; }
+            100% { transform: translateY(100vh) translateX(20px); opacity: 0; }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 600px) {
+            .section { width: 90%; padding: 15px; }
+            button { font-size: 14px; padding: 10px 15px; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <button onclick="playMusic()">Play Music 🎶</button>
-        <audio id="bgMusic" loop>
-            <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
-        </audio>
+        <h2>Happy Valentine's Day, Vush ❤️</h2>
+        
+        <!-- Spotify Music Player -->
+        <!-- <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1TwVc3FA9REclpN4AhnSzG?utm_source=generator" width="300" height="80" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe> -->
+ <!-- Correct Spotify Music Player -->
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/67bjMH6zyv0d8bJps5BTVD?utm_source=generator" width="300" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
         <div class="section">
-            <h1>Happy Valentine's Day, Vush! ❤️</h1>
             <p>10 years together and I still get butterflies thinking about you. 🥰</p>
         </div>
 
@@ -121,53 +122,52 @@
 
         <div class="section hidden" id="loveLetter">
             <h2>My Love Letter to You 💌</h2>
-            <p>
-                Vush, my love, my forever PK partner,<br><br>
+            <div class="love-note">
+                <p>
+                    Vush, my love, my forever PK partner,<br><br>
 
-                From sneaking around your house just to steal a glimpse of you, to dreaming about our future together, every moment with you is magical. ✨<br><br>
+                    From sneaking around your house just to steal a glimpse of you, to dreaming about our future together, every moment with you is magical. ✨<br><br>
 
-                Even after all these years, you make me feel the same excitement, love, and warmth. ❤️<br><br>
+                    Even after all these years, you make me feel the same excitement, love, and warmth. ❤️<br><br>
 
-                One day, we’ll have our small bakery, we’ll travel the world, and we’ll tell our story to everyone—how two crazy kids fell in love and never let go. <br><br>
+                    One day, we’ll have our small bakery, we’ll travel the world, and we’ll tell our story to everyone—how two crazy kids fell in love and never let go. <br><br>
 
-                Happy Valentine's Day, my Vush. I love you more than words can ever say. ❤️
-            </p>
+                    Happy Valentine's Day, my Vush. I love you more than words can ever say. ❤️
+                </p>
+            </div>
         </div>
 
         <div id="popup" class="popup"></div>
-
     </div>
 
     <script>
-        function playMusic() { document.getElementById('bgMusic').play(); }
-        function showPopup(message) {
-            const popup = document.getElementById('popup');
-            popup.innerHTML = `<p>${message}</p><button onclick="closePopup()">Okay 🙄</button>`;
-            popup.style.display = 'block';
-        }
-        function closePopup() { document.getElementById('popup').style.display = 'none'; }
-
         function nextQuestion() { document.getElementById('question1').classList.add('hidden'); document.getElementById('question2').classList.remove('hidden'); }
         function nextQuestion2() { document.getElementById('question2').classList.add('hidden'); document.getElementById('question3').classList.remove('hidden'); }
         function nextQuestion3() { document.getElementById('question3').classList.add('hidden'); document.getElementById('question4').classList.remove('hidden'); }
         function nextQuestion4() { document.getElementById('question4').classList.add('hidden'); document.getElementById('question5').classList.remove('hidden'); }
         function showLoveLetter() { document.getElementById('question5').classList.add('hidden'); document.getElementById('loveLetter').classList.remove('hidden'); }
 
-        // Floating Hearts Animation
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.classList.add("heart");
-            heart.innerHTML = "❤️";
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.animationDuration = Math.random() * 2 + 3 + "s";
-            document.body.appendChild(heart);
-            
-            setTimeout(() => {
-                heart.remove();
-            }, 5000);
+        function showPopup(message) {
+            const popup = document.getElementById('popup');
+            popup.innerHTML = `<p>${message}</p><button onclick="closePopup()">Okay 🙄</button>`;
+            popup.style.display = 'block';
         }
 
-        setInterval(createHeart, 500); // Creates a heart every 0.5 seconds
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }
+
+        setInterval(createHeart, 300);
     </script>
 
 </body>
