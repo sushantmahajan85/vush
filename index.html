@@ -56,24 +56,66 @@
 
         .hidden { display: none; }
 
-        /* Falling Hearts */
-        .heart {
+        /* Popup Styling */
+        .popup {
             position: fixed;
-            bottom: 0;
-            font-size: 20px;
-            color: red;
-            animation: fall 4s linear infinite;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            width: 300px;
+            text-align: center;
+            display: none;
         }
 
-        @keyframes fall {
-            0% { transform: translateY(0) translateX(0); opacity: 1; }
-            100% { transform: translateY(100vh) translateX(20px); opacity: 0; }
+        .popup button {
+            background: #ff4b5c;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        /* Floating Hearts Animation */
+        .heart {
+            position: fixed;
+            bottom: -30px;
+            font-size: 24px;
+            color: red;
+            opacity: 0;
+            animation: rise 4s linear forwards;
+        }
+
+        @keyframes rise {
+            0% { transform: translateY(0); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
         }
 
         /* Mobile Responsive */
         @media (max-width: 600px) {
             .section { width: 90%; padding: 15px; }
             button { font-size: 14px; padding: 10px 15px; }
+            .popup { width: 80%; }
         }
     </style>
 </head>
@@ -81,15 +123,8 @@
 
     <div class="container">
         <h2>Happy Valentine's Day, Vush ❤️</h2>
-        
-        <!-- Spotify Music Player -->
-        <!-- <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1TwVc3FA9REclpN4AhnSzG?utm_source=generator" width="300" height="80" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe> -->
- <!-- Correct Spotify Music Player -->
-        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/67bjMH6zyv0d8bJps5BTVD?utm_source=generator" width="300" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
-        <div class="section">
-            <p>10 years together and I still get butterflies thinking about you. 🥰</p>
-        </div>
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/67bjMH6zyv0d8bJps5BTVD?utm_source=generator" width="300" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
         <div class="section" id="question1">
             <h3>How much do you love me?</h3>
@@ -122,21 +157,23 @@
 
         <div class="section hidden" id="loveLetter">
             <h2>My Love Letter to You 💌</h2>
-            <div class="love-note">
-                <p>
-                    Vush, my love, my forever PK partner,<br><br>
+            <p>  
+                Vanshika, my Vush,<br><br>
 
-                    From sneaking around your house just to steal a glimpse of you, to dreaming about our future together, every moment with you is magical. ✨<br><br>
+                Ten years. A whole decade. And somehow, even after all this time, you still manage to make me feel the way I did in school when I saw you for the first time.<br><br>
 
-                    Even after all these years, you make me feel the same excitement, love, and warmth. ❤️<br><br>
+                From stolen glances in class to our silent PK moments that no one else understood, from sneaking around your house just to see you for a few minutes to now planning a future together—every chapter of our story has been worth it.<br><br>
 
-                    One day, we’ll have our small bakery, we’ll travel the world, and we’ll tell our story to everyone—how two crazy kids fell in love and never let go. <br><br>
+                Life isn’t always perfect, but having you beside me makes it feel like it is. You’ve been my constant, my support system, my happiest thought. No matter how chaotic things get, I know one thing for sure—if it’s with you, it’s worth it.<br><br>
 
-                    Happy Valentine's Day, my Vush. I love you more than words can ever say. ❤️
-                </p>
-            </div>
+                One day, we'll be sitting in our little café, laughing at how far we've come, still giving each other PKs for no reason, and still proving to the world that love—real love—never fades.<br><br>
+
+                Happy Valentine’s Day, my love. Thank you for being my home. ❤️  
+            </p>
         </div>
 
+        <!-- Popup & Overlay -->
+        <div class="overlay" id="overlay"></div>
         <div id="popup" class="popup"></div>
     </div>
 
@@ -149,12 +186,15 @@
 
         function showPopup(message) {
             const popup = document.getElementById('popup');
+            const overlay = document.getElementById('overlay');
             popup.innerHTML = `<p>${message}</p><button onclick="closePopup()">Okay 🙄</button>`;
             popup.style.display = 'block';
+            overlay.style.display = 'block';
         }
 
         function closePopup() {
             document.getElementById('popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
         }
 
         function createHeart() {
@@ -162,7 +202,6 @@
             heart.innerHTML = '❤️';
             heart.classList.add('heart');
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
             document.body.appendChild(heart);
             setTimeout(() => heart.remove(), 4000);
         }
